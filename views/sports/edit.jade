@@ -1,0 +1,15 @@
+extends ../layout.jade
+
+block content
+  h2 Edit #{sport.name}
+  .form-group
+    form(name="editSport" action="/sports/#{sport._id}?_method=PUT" method= "POST")
+      label name
+      input(name= "sport[name]",type = "text" value= sport.name).form-control
+      label image
+      input(name= "sport[image]",type="text" value= sport.image).form-control
+      label rating
+      input(name= "sport[rating]", type="number" value= sport.rating).form-control
+      label description
+      input(name= "sport[description]", type="text" value= sport.description).form-control
+      input(name="submit", type="submit", value="submit").btn.btn-primary

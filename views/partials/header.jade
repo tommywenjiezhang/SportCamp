@@ -1,0 +1,32 @@
+mixin nav(name, id, style)
+    - var style = (typeof style === 'undefined') ? "expand-lg navbar-default bg-dark" : style
+    nav( role="navigation", class=["navbar", "navbar-" + style] )
+      .navbar-header
+        a.navbar-brand(href="/sports")= name
+      ul.navbar-nav
+        .collapse.navbar-collapse(id=id)
+            block
+ 
+mixin nav_item(href, active)
+  li(class=active): a( href=href, class="nav-link")
+      block
+ 
+mixin nav_item_dropdown(href, active)
+  li(class=["dropdown", active])
+      a.dropdown-toggle( href=href, data-toggle="dropdown", role="button", aria-expanded="false" )= attributes.label
+          span.caret
+      ul.dropdown-menu( role="menu" )
+          block
+ 
+mixin nav_divider
+  li.divider
+ 
+mixin nav_header
+  li.dropdown-header
+      block
+body
+      +nav("Sport Camp", "sport_nav_dropdown_menu")
+        +nav_item( "/sports/newSport", "nav-item active" ) Create a new Sport
+        +nav_item( "#" , "nav-item active" ) About
+        +nav_item( "#", "nav-item active"  ) Contact
+        

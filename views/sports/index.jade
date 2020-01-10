@@ -1,0 +1,18 @@
+extends ../layout.jade
+
+block content
+  include ../partials/header.jade
+
+  .container
+    .row
+      each sport in sports
+        .col-md-4
+          .thumbnail
+            img(src= sport.image)
+          .caption
+            h3= sport.name
+          h4= sport.rating
+          a(href ="/sports/#{sport._id}") More info 
+          form(name="deleteSport", action="/sports/#{sport._id}?_method=DELETE" method="POST")
+            input(type="submit",name="submit",value="delete").btn.btn-danger
+    

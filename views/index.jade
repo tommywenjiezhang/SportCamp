@@ -1,0 +1,12 @@
+extends
+html
+
++nav("Project name", "dropdown_menu")
+
+  h1= title
+  p Welcome to 
+  .container
+      .row
+      each val in users 
+        .col-sm-3= val.username
+    

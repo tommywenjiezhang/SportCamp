@@ -1,0 +1,37 @@
+body {
+  padding-left: 20%;
+  padding-right: 20%;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+img{
+  height: 100%;
+  width:100%;
+}
+div{
+  padding:0;
+}
+.jumbotron > .thumbnail{
+  height:100%;
+  width:100%;
+}
+.btn{
+  margin-top:5px;
+  display:inline-block;
+  width:100%;
+}
+.jumbotron{
+  text-align: left;
+}
+.nav {
+  top:0;
+  position: fixed;
+  width:60%;
+
+}
+.container{
+  margin-top:5%;
+}

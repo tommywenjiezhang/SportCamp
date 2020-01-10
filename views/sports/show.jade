@@ -1,0 +1,20 @@
+extends ../layout.jade
+
+
+block content
+
+  include ../partials/header.jade
+  .container
+    .jumbotron
+      h1.display-4 #{sport.name}
+      hr
+      .row
+        .col-md-6.offset-md-3
+          .thumbnail
+            img(src = sport.image)
+      .row
+        .col-md-6.offset-md-3
+          .caption
+            h2 #{sport.description}
+            h4 rating: #{sport.rating*10}%
+          a(href = '#{sport._id}/edit').btn.btn-primary Edit Post
