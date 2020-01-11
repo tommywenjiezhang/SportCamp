@@ -1,0 +1,18 @@
+extends ../layout.jade
+block content
+  include ../partials/header.jade
+  
+  .container
+    .row
+      .col-md-6.offset-md-3
+        h1 Login Page
+        .form-group
+        form(action="/login",method="POST")
+          label usernames:
+          input(type="text", name="username", placeholder="username").form-control
+          label password:
+          input(type="password", name="password", placeholder="password").form-control
+          input(type="submit", name="submit",value="submit").btn.btn-primary
+        
+
+  

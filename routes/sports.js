@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var Sport = require("../controller/sports")
+var middleware = require("../middleware/index")
 
 // get new page
-router.get('/newSport', Sport.show_new_page)
+router.get('/newSport',middleware.isLoggedIn,Sport.show_new_page)
 // get list of sports
 router.get('/', Sport.sport_list)
 // create a new sport
-router.post('/',Sport.sport_create_new)
+router.post('/', middleware.isLoggedIn,Sport.sport_create_new)
 // show specific sport
 router.get("/:id", Sport.sport_show_specific)
 // get edit activity

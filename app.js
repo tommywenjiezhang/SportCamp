@@ -3,9 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var  mongoose   = require('mongoose')
+var mongoose   = require('mongoose')
 var methodOverride = require('method-override')
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var session = require('express-session')
+var LocalStrategy = require('passport-local').Strategy;
 // user temp database testing
 
 
@@ -17,6 +20,11 @@ var app = express();
 // mangodb url
 const url = 'mongodb://localhost:27017/sportCampDB';
 mongoose.connect(url)
+
+app.use(session({ secret: 'passport-tutorial',resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -33,6 +41,8 @@ app.use(methodOverride("_method"));
 
 
 
+
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +50,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bootstrap',express.static(path.join(__dirname,'node_modules/bootstrap/dist/css/')))
 app.use('/bootstrap/js',express.static(path.join(__dirname,'node_modules/bootstrap/dist/js/')))
+
+// passport
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -50,7 +63,10 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-
+app.use(function(req, res, next){
+   res.locals.currentUser = req.user;
+   next();
+});
 
 
 // error handler

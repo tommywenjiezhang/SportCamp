@@ -4,7 +4,6 @@ var Sport = require('../models/sports');
 
 exports.show_new_page =  function(req,res,next){
     res.render("sports/new");
-    console.log(allSports)
 }
 
 

@@ -2,7 +2,7 @@ mixin nav(name, id, style)
     - var style = (typeof style === 'undefined') ? "expand-lg navbar-default bg-dark" : style
     nav( role="navigation", class=["navbar", "navbar-" + style] )
       .navbar-header
-        a.navbar-brand(href="/sports")= name
+        a.navbar-brand(href="/")= name
       ul.navbar-nav
         .collapse.navbar-collapse(id=id)
             block

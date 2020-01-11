@@ -1,12 +1,24 @@
-extends
-html
+extends layout.jade
 
-+nav("Project name", "dropdown_menu")
-
-  h1= title
-  p Welcome to 
-  .container
-      .row
-      each val in users 
-        .col-sm-3= val.username
-    
+block content
+  style(type='text/css').
+        .btn-primary {
+             margin-top:10%
+         }
+  include ./partials/header.jade
+  .container#main_video_container
+    iframe(width='100%', height='100%', src='https://www.youtube.com/embed/AQkbbtDoPq0?autoplay=1&mute=1&start=10', frameborder='0', allow='accelerometer; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='')#myVideo
+  #content
+    h1.heading Welcome to Sport Camp
+    p A social media plaform for sport ethuaist
+    .row
+      .col-md-12
+        .form-group
+        form(action="/login",method="POST")
+          label usernames:
+          input(type="text", name="username", placeholder="username").form-control
+          label password:
+          input(type="password", name="password", placeholder="password").form-control
+          input(type="submit", name="submit",value="submit").btn.btn-primary
+            
+      
