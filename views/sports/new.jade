@@ -5,17 +5,19 @@ block content
   
   .container
     .row
-      .col-md-6.offset-md-3
-        h2 Create new Sport
-        div.form-group
-          form(name="createNewSport" action="/sports" method = "post")
-            label name
-            input(name="name",type = "text").form-control
-            label image
-            input(name="image",type="text").form-control
-            label rating
-            input(name="rating", type="number").form-control
-            label description
-            input(name="description", type="text").form-control
-            input(name="submit", type="submit", value="submit").btn.btn-primary
+    -if (message)
+      p= message
+    .col-md-6.offset-md-3
+      h2 Create new Sport
+      div.form-group
+        form(name="createNewSport" action="/sports" method = "post")
+          label name
+          input(name="name",type = "text").form-control
+          label image
+          input(name="image",type="text").form-control
+          label rating
+          input(name="rating", type="number").form-control
+          label description
+          input(name="description", type="text").form-control
+          input(name="submit", type="submit", value="submit").btn.btn-primary
     

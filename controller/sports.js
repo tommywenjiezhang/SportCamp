@@ -3,7 +3,7 @@ var Sport = require('../models/sports');
 
 
 exports.show_new_page =  function(req,res,next){
-    res.render("sports/new");
+    res.render("sports/new",{users: req.user});
 }
 
 
@@ -21,7 +21,12 @@ exports.sport_create_new = function(req,res,next){
   var image = req.body.image;
   var description = req.body.description
   var rating = req.body.rating
-  var newSport = {name:name, image:image, description:description, rating:rating}
+  var author = {
+       id: req.user._id,
+       username: req.user.username
+   }
+  var newSport = {name:name, image:image, description:description, rating:rating, author:author}
+
 
   Sport.create(newSport, function(err, newlyCreated){
     if(err){
@@ -35,13 +40,13 @@ exports.sport_create_new = function(req,res,next){
 }
 
 exports.sport_show_specific = function (req,res){
-  Sport.findById(req.params.id).exec(function(err, foundSport){
+  Sport.findById(req.params.id).populate("comments").exec(function(err, foundSport){
        if(err){
            console.log(err);
        } else {
-           console.log(foundSport)
+          foundSport.comments.forEach(comment => console.log("Comment: " + comment.text))
            //render show template with that sport
-           res.render("sports/show", {sport: foundSport});
+           res.render("sports/show", {sport: foundSport, users: req.user});
        }
    });
 }

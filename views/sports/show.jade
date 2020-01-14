@@ -2,7 +2,17 @@ extends ../layout.jade
 
 
 block content
-
+  style.
+    .btn-success{
+        margin-top:5px;
+    }
+    .btn-danger{
+      margin:5px;
+    }
+    .list-group-item{
+      margin-top:2px;
+      
+    }
   include ../partials/header.jade
   .container
     .jumbotron
@@ -18,3 +28,20 @@ block content
             h2 #{sport.description}
             h4 rating: #{sport.rating*10}%
           a(href = '#{sport._id}/edit').btn.btn-primary Edit Post
+      .row
+        .col-md-12
+          h2 Comments Section
+          a(href ="#{sport._id}/comments/new").btn.btn-primary Post Comments
+          .d-flex.flex-column
+            each comment in sport.comments
+              .list-group-item
+                p #{comment.text}
+                .d-flex.justify-content-start
+                  .p-2 By #{comment.author.username}
+                if currentUser && currentUser.username.length > 0 && currentUser._id.equals(comment.author.id)
+                  .d-flex.flex-row.justify-content-end
+                    div
+                    a(href="#{sport._id}/comments/#{comment._id}/edit").btn.btn-success Edit Comment
+                    div
+                    form(action="#{sport._id}/comments/#{comment._id}?_method=DELETE",method="POST" )
+                      input(value="delete" type= "submit").btn.btn-danger

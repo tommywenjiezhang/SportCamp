@@ -1,0 +1,15 @@
+extends ../layout.jade
+
+block content
+  include ../partials/header.jade
+  
+  .container
+    .row
+      .col-md-6.offset-md-3
+        h2 Edit Comment
+        .form-group
+          form(name="createNewComment" action="/sports/#{sports_id}/comments/#{comment._id}?_method=PUT" method = "POST")
+            label Comment Edit Form:
+            input(name="comment[text]", value="#{comment.text}").form-control
+            input(name="submit", type="submit", value="submit").btn.btn-primary
+    

@@ -1,10 +1,11 @@
 mixin nav(name, id, style)
-    - var style = (typeof style === 'undefined') ? "expand-lg navbar-default bg-dark" : style
+    - var style = (typeof style === 'undefined') ? "expand-lg navbar-inverse bg-dark" : style
     nav( role="navigation", class=["navbar", "navbar-" + style] )
-      .navbar-header
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#sport_nav_dropdown_menu', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+          i.fas.fa-caret-down(style="color:white;")
         a.navbar-brand(href="/")= name
-      ul.navbar-nav
         .collapse.navbar-collapse(id=id)
+          ul.navbar-nav
             block
  
 mixin nav_item(href, active)
@@ -24,9 +25,25 @@ mixin nav_divider
 mixin nav_header
   li.dropdown-header
       block
+mixin alert_message
+  if error && error.length>0
+    div.alert.alert-danger= error
+  if  success && success.length > 0
+    div.alert.alert-success=success
+  
 body
       +nav("Sport Camp", "sport_nav_dropdown_menu")
         +nav_item( "/sports/newSport", "nav-item active" ) Create a new Sport
-        +nav_item( "#" , "nav-item active" ) About
+        +nav_item( "/sports" , "nav-item active" ) All Sports
         +nav_item( "#", "nav-item active"  ) Contact
+        .d-flex.justify-content-between
+          if !currentUser
+            div
+              +nav_item("/login",'nav-item active') Login
+          else
+            div
+              +nav_item("#",'nav-item active')=currentUser.username
+          div
+            +nav_item("/logout",'nav-item active') Logout
+      +alert_message
         

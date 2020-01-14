@@ -9,22 +9,31 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session')
 var LocalStrategy = require('passport-local').Strategy;
+var
+    Sport = require("./models/sports"),
+    Comment     = require("./models/comment"),
+    User        = require("./models/users");
+var flash = require('connect-flash');
 // user temp database testing
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var sportsRouter= require('./routes/sports')
+var sportsRouter= require('./routes/sports');
+var commentRouter = require('./routes/comment');
+
 var app = express();
 
 // mangodb url
 const url = 'mongodb://localhost:27017/sportCampDB';
 mongoose.connect(url)
+app.use(flash());
 
 app.use(session({ secret: 'passport-tutorial',resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport');
+
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -32,6 +41,7 @@ db.once('open', function() {
   // we're connected!
   console.log("success")
 });
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,12 +61,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bootstrap',express.static(path.join(__dirname,'node_modules/bootstrap/dist/css/')))
 app.use('/bootstrap/js',express.static(path.join(__dirname,'node_modules/bootstrap/dist/js/')))
 
-// passport
 
+// passport
+app.use(function(req, res, next){
+   res.locals.currentUser = req.user;
+   res.locals.error = req.flash("error");
+   res.locals.success = req.flash("success");
+   next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/sports',sportsRouter)
+app.use("/sports/:id/comments", commentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -82,8 +99,5 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000, process.env.IP, function(){
    console.log("The SportCamp Server Has Started!"+ process.env.PORT);
-  // bootstrap
-  console.log("Bootstrap Path: " + path.join(__dirname,'node_modules/bootstrap/dist/css/'))
-  console.log("Bootstrap js Path: " + path.join(__dirname,'node_modules/bootstrap/dist/js/bootstrap.js'))
 });
 module.exports = app;

@@ -1,0 +1,15 @@
+extends ../layout.jade
+
+block content
+  include ../partials/header.jade
+  
+  .container
+    .row
+      .col-md-6.offset-md-3
+        h2 Create Comment for #{sport.name}
+        div.form-group
+          form(name="createNewComment" action="/sports/#{sport._id}/comments" method = "post")
+            label Comment
+            input(name="comment[text]", placeholder ="Enter your comment").form-control
+            input(name="submit", type="submit", value="submit").btn.btn-primary
+    

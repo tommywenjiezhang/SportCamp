@@ -17,7 +17,7 @@ div{
   height:100%;
   width:100%;
 }
-.btn{
+.btn-primary .btn-danger{
   margin-top:5px;
   display:inline-block;
   width:100%;
@@ -36,6 +36,7 @@ div{
 }
 #myVideo {
   position: fixed;
+  z-index: -1;
   top:56px;
   right: 0;
   bottom: 0;
@@ -47,13 +48,11 @@ div{
 }
 /* Add some content at the bottom of the video/page */
 #content {
-  position: fixed;
-  bottom: 10%;
-  top:20%;
-  left:60 %;
-  right:10%;
   background: rgba(0, 0, 0, 0.5);
   color: #f1f1f1;
   width: 30%;
   padding: 20px;
+}
+#floatright{
+  float:right;
 }
