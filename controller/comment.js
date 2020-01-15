@@ -2,6 +2,7 @@ var Comment = require("../models/comment");
 var Sport = require("../models/sports");
 
 
+
 exports.create_new_comment = function(req,res){
   Sport.findById(req.params.id,function(err,findSport){
     if(err){

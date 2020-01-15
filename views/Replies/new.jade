@@ -1,0 +1,14 @@
+extends ../layout.jade
+
+block content
+  include ../partials/header.jade
+  .container
+    .row
+      .col-md-6.offset-md-3
+        h2 Replies to #{comment.author.username}
+        div.form-group
+          form(name="createNewReplies" action="/sports/#{sport._id}/comments/#{comment._id}/replies" method = "post")
+            label Reply
+            input(name="reply[text]", placeholder ="Enter your reply").form-control
+            input(name="submit", type="submit", value="submit").btn.btn-primary
+    

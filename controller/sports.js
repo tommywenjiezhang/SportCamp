@@ -1,6 +1,7 @@
 var  mongoose   = require('mongoose');
 var Sport = require('../models/sports');
-
+var Comment =  require('../models/comment')
+var Reply = require("../models/Reply")
 
 exports.show_new_page =  function(req,res,next){
     res.render("sports/new",{users: req.user});
@@ -40,13 +41,23 @@ exports.sport_create_new = function(req,res,next){
 }
 
 exports.sport_show_specific = function (req,res){
-  Sport.findById(req.params.id).populate("comments").exec(function(err, foundSport){
+  Sport.findById(req.params.id).populate({"path":"comments",
+        "populate":
+        {
+          "path":"replies",
+          "model":"Reply"
+        }
+      }).exec(function(err, foundSport){
        if(err){
            console.log(err);
        } else {
-          foundSport.comments.forEach(comment => console.log("Comment: " + comment.text))
-           //render show template with that sport
-           res.render("sports/show", {sport: foundSport, users: req.user});
+             if(err){
+               console.log(err)
+             }
+             else{
+               // res.json(foundSport)
+               res.render("sports/show", {sport: foundSport, users: req.user});
+             }
        }
    });
 }

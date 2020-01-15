@@ -1,18 +1,24 @@
 extends ../layout.jade
 
 block content
+  
   include ../partials/header.jade
-
+  style(type='text/css').
+    .btn{
+      display:inline-block;
+      width:100%;
+    }
   .container
-    .row
+    .row.text-center(style="display:flex; flex-wrap: wrap;")
       each sport in sports
-        .col-md-4
+        .col-md-3.col-sm-6
           .thumbnail
             img(src= sport.image)
+          hr
           .caption
             h3= sport.name
           h4= sport.rating
-          a(href ="/sports/#{sport._id}") More info
+          a(href ="/sports/#{sport._id}").btn.btn-primary More info
           if currentUser
             form(name="deleteSport", action="/sports/#{sport._id}?_method=DELETE" method="POST")
               input(type="submit",name="submit",value="delete").btn.btn-danger

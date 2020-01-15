@@ -11,9 +11,16 @@ block content
     }
     .list-group-item{
       margin-top:2px;
-      
+    }
+    input{
+      background-color:none;
     }
   include ../partials/header.jade
+  style(type='text/css').
+    btn{
+      margin:0;
+      padding:0;
+    }
   .container
     .jumbotron
       h1.display-4 #{sport.name}
@@ -38,10 +45,24 @@ block content
                 p #{comment.text}
                 .d-flex.justify-content-start
                   .p-2 By #{comment.author.username}
+                  a(href="#{sport._id}/comments/#{comment._id}/replies/new") Add Replies
+                each reply in comment.replies
+                  .list-group-item
+                    .p-2 #{reply.author.username} said: 
+                      span #{reply.text}
+                      a(href ="#{sport._id}/comments/#{comment._id}/replies/#{reply._id}/edit",style="float:right;").btn.btn-primary Edit Reply
+                      form(action ="/sports/#{sport._id}/comments/#{comment._id}/replies/#{reply._id}?_method=DELETE", method ="POST", style="float:right;")
+                        input(type="submit",value="Delete Replies").btn.btn-danger 
                 if currentUser && currentUser.username.length > 0 && currentUser._id.equals(comment.author.id)
                   .d-flex.flex-row.justify-content-end
                     div
                     a(href="#{sport._id}/comments/#{comment._id}/edit").btn.btn-success Edit Comment
                     div
-                    form(action="#{sport._id}/comments/#{comment._id}?_method=DELETE",method="POST" )
-                      input(value="delete" type= "submit").btn.btn-danger
+                      form(action="#{sport._id}/comments/#{comment._id}?_method=DELETE",method="POST" ).btn.btn-danger
+                        i.fas.fa-trash-alt
+                        input(type= "submit",value="")
+                          
+                      
+                    
+                        
+                    
