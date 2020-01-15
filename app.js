@@ -61,6 +61,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bootstrap',express.static(path.join(__dirname,'node_modules/bootstrap/dist/css/')))
 app.use('/bootstrap/js',express.static(path.join(__dirname,'node_modules/bootstrap/dist/js/')))
+app.use('/bootstrap/util',express.static(path.join(__dirname,'node_modules/bootstrap/js/dist')))
+app.use('/jquery',express.static(path.join(__dirname,'node_modules/jquery/dist/')))
+app.use('/popper',express.static(path.join(__dirname,'node_modules/@popperjs/core/dist/umd')))
 
 
 // passport

@@ -5,7 +5,6 @@ mixin nav(name, id, style)
           i.fas.fa-caret-down(style="color:white;")
         a.navbar-brand(href="/")= name
         .collapse.navbar-collapse(id=id)
-          ul.navbar-nav
             block
  
 mixin nav_item(href, active)
@@ -20,7 +19,8 @@ mixin nav_item_dropdown(href, active)
           block
  
 mixin nav_divider
-  li.divider
+  ul.navbar-nav
+    block
  
 mixin nav_header
   li.dropdown-header
@@ -30,20 +30,30 @@ mixin alert_message
     div.alert.alert-danger= error
   if  success && success.length > 0
     div.alert.alert-success=success
+
+mixin login
+  .navbar-nav.ml-auto
+    if !currentUser
+      .nav-item.active
+        a(href="/login").nav-link Login
+    else
+      li(class="active")
+         a( href="#", class="nav-link")= currentUser.username
+      a.btn.btn-danger.mr-0(href="/logout") Logout
   
 body
       +nav("Sport Camp", "sport_nav_dropdown_menu")
-        +nav_item( "/sports/newSport", "nav-item active" ) Create a new Sport
-        +nav_item( "/sports" , "nav-item active" ) All Sports
-        +nav_item( "#", "nav-item active"  ) Contact
-        .d-flex.justify-content-between
-          if !currentUser
-            div
-              +nav_item("/login",'nav-item active') Login
-          else
-            div
-              +nav_item("#",'nav-item active')=currentUser.username
-          div
-            +nav_item("/logout",'nav-item active') Logout
+        +nav_divider
+          +nav_item( "/sports/newSport", "nav-item active" ) Create a new Sport
+          +nav_item( "/sports" , "nav-item active" ) All Sports
+        +login
+          //- if !currentUser
+          //-   div
+          //-     +nav_item("/login",'nav-item active') Login
+          //- else
+          //-   div
+          //-     +nav_item("#",'nav-item active')=currentUser.username
+          //- div
+          //-   +nav_item("/logout",'nav-item active') Logout
       +alert_message
         
