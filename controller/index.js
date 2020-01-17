@@ -17,7 +17,7 @@ exports.register = function(req, res) {
 }
 
 exports.post_register = function(req, res) {
-  var newUser = new User({username: req.body.username,name:req.body.user.name,phone:req.body.user.phone,email:req.body.user.email});
+  var newUser = new User({username: req.body.username,name:req.body.user.name,phone:req.body.user.phone,email:req.body.user.email,image:req.body.image});
      User.register(newUser, req.body.password, function(err, user){
          if(err){
            console.log(err + user)
