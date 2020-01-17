@@ -5,6 +5,12 @@ var sportsSchema = new mongoose.Schema({
    name: String,
    image: String,
    description: String,
+   likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
    rating: Number,
    author: {
     id: {

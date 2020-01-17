@@ -17,6 +17,8 @@ router.get("/:id/edit", middleware.checkSportOwnership,Sport.sport_show_edit);
 router.put("/:id", middleware.checkSportOwnership, Sport.sport_edit_route);
 // DESTROY Sport ROUTE
 router.delete("/:id",middleware.checkSportOwnership,Sport.sport_remove);
+//post_like
+router.post("/:id/like",middleware.isLoggedIn,Sport.post_likes)
 
 
 module.exports = router;

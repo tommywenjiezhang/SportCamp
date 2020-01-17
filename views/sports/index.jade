@@ -11,24 +11,36 @@ block content
     .dropdown-item{
       width:100%;
     }
+    #like{
+       background:url(images/heart-solid0.svg)  no-repeat;
+       color : transparent;
+       border: none;
+    }
   .container
     .row.text-center(style="display:flex; flex-wrap: wrap;")
       each sport in sports
-        .col-md-3.col-sm-6
-          .thumbnail
-            img(src= sport.image)
-            hr
-            .caption
-            h3= sport.name
-            p2 By #{sport.author.username}
-            h4= sport.rating
-            .dropdown
-              button.btn.btn-secondary.dropdown-toggle(type="button",id="dropdownMenuButton",data-toggle="dropdown",aria-haspopup="true",aria-expanded="false")
-              .dropdown-menu(aria-labelledby="dropdownMenuButton")#dropmenu
-                .dropdown-item
-                  a(href ="/sports/#{sport._id}") More info
-                .dropdown-item
-                  if currentUser && currentUser.username === sport.author.username
-                    form(name="deleteSport", action="/sports/#{sport._id}?_method=DELETE" method="POST")
-                      input(type="submit",name="submit",value="delete").btn.btn-danger
+        .col-md-4.col-sm-6
+          .card
+            img(src= sport.image).card-img-top
+            .card-body
+              .card-title
+                h3= sport.name
+                .d-flex.justify-content-center
+                  div
+                  form(action="sports/#{sport._id}/like", method="POST")
+                    input(type="submit" value="")#like
+                  if sport.likes.length > 0
+                    div  
+                      p= sport.likes.length
+              .card-text
+                p2 By #{sport.author.username}
+              .dropdown.mt-2
+                button.btn.btn-secondary.dropdown-toggle(type="button",id="dropdownMenuButton",data-toggle="dropdown",aria-haspopup="true",aria-expanded="false")
+                .dropdown-menu(aria-labelledby="dropdownMenuButton")#dropmenu
+                  .dropdown-item
+                    a(href ="/sports/#{sport._id}") More info
+                  .dropdown-item
+                    if currentUser && currentUser.username === sport.author.username
+                      form(name="deleteSport", action="/sports/#{sport._id}?_method=DELETE" method="POST")
+                        input(type="submit",name="submit",value="delete").btn.btn-danger
     

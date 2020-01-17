@@ -2,7 +2,7 @@ extends ../layout.jade
 
 
 block content
-  style.
+  style(text="css").
     .btn-success{
         margin-top:5px;
     }
@@ -16,11 +16,6 @@ block content
       background-color:none;
     }
   include ../partials/header.jade
-  style(type='text/css').
-    btn{
-      margin:0;
-      padding:0;
-    }
   .container
     .jumbotron
       h1.display-4 #{sport.name}
@@ -32,8 +27,11 @@ block content
       .row
         .col-md-6.offset-md-3
           .caption
-            h2 #{sport.description}
-            h4 rating: #{sport.rating*10}%
+            p #{sport.description}
+            .fas.fa-comments
+              span= sport.comments.length
+            .fas.fa-thumbs-up
+              span= sport.likes.length
           a(href = '#{sport._id}/edit').btn.btn-primary Edit Post
       .row
         .col-md-12
@@ -45,22 +43,29 @@ block content
                 p #{comment.text}
                 .d-flex.justify-content-start
                   .p-2 By #{comment.author.username}
-                  a(href="#{sport._id}/comments/#{comment._id}/replies/new") Add Replies
+                .d-flex.justify-content-end
+                  .dropdown
+                    button(type="button", class="btn btn-secondary dropdown-toggle ml-2 mb-0",  id="commentDropdown", data-toggle="dropdown",aria-haspopup="true",aria-expanded="false") Post Action
+                    .dropdown-menu(aria-labelledby="commentDropdown")
+                      if currentUser && currentUser.username.length > 0 && currentUser._id.equals(comment.author.id)
+                        .dropdown-item
+                          a(href="#{sport._id}/comments/#{comment._id}/edit").btn.btn-success Edit Comment
+                        .dropdown-item
+                          form(action="#{sport._id}/comments/#{comment._id}?_method=DELETE",method="POST" )
+                            input(type= "submit",value="delete").btn.btn-danger
+                a(href="#{sport._id}/comments/#{comment._id}/replies/new") Add Replies
                 each reply in comment.replies
                   .list-group-item
                     .p-2 #{reply.author.username} said: 
                       span #{reply.text}
-                      a(href ="#{sport._id}/comments/#{comment._id}/replies/#{reply._id}/edit",style="float:right;").btn.btn-primary Edit Reply
-                      form(action ="/sports/#{sport._id}/comments/#{comment._id}/replies/#{reply._id}?_method=DELETE", method ="POST", style="float:right;")
-                        input(type="submit",value="Delete Replies").btn.btn-danger 
-                if currentUser && currentUser.username.length > 0 && currentUser._id.equals(comment.author.id)
-                  .d-flex.flex-row.justify-content-end
-                    div
-                    a(href="#{sport._id}/comments/#{comment._id}/edit").btn.btn-success Edit Comment
-                    div
-                      form(action="#{sport._id}/comments/#{comment._id}?_method=DELETE",method="POST" ).btn.btn-danger
-                        i.fas.fa-trash-alt
-                        input(type= "submit",value="")
+                    .d-flex.flex-row.justify-content-end
+                      div
+                        a(href ="#{sport._id}/comments/#{comment._id}/replies/#{reply._id}/edit",style="margin-top:5px").btn.btn-primary Edit Reply
+                      div
+                        form(action ="/sports/#{sport._id}/comments/#{comment._id}/replies/#{reply._id}?_method=DELETE",method ="POST")
+                          input(type="submit",value="Delete Replies").btn.btn-danger
+                          
+                
                           
                       
                     

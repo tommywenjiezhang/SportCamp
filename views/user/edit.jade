@@ -1,0 +1,19 @@
+extends ../layout.jade
+block content
+  include ../partials/header.jade
+  
+  .container
+    .row
+      .col-md-6.offset-md-3
+        h1 Edit Page
+        .form-group
+        form(action="/users/#{user._id}", method="POST")
+          label name:
+          input(type="text", name="user[name]", value="#{user.name}").form-control
+          label phone:
+          input(type="number", name="user[phone]", value="#{user.phone}").form-control
+          label email:
+          input(type="text", name="user[email]", value="#{user.email}").form-control
+          input(type="submit", name="submit",value="submit").btn.btn-primary
+          
+        

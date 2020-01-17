@@ -35,11 +35,11 @@ mixin login
   .navbar-nav.ml-auto
     if !currentUser
       .nav-item.active
-        a(href="/login").nav-link Login
+        a(href="/login").btn.btn-success Login
     else
       li(class="active")
-         a( href="#", class="nav-link")= currentUser.username
-      a.btn.btn-danger.mr-0(href="/logout") Logout
+         a( href="/users/#{currentUser._id}", class="nav-link")= currentUser.username
+      a.btn.btn-secondary.mr-0(href="/logout") Logout
   
 body
       +nav("Sport Camp", "sport_nav_dropdown_menu")

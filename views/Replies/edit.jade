@@ -9,7 +9,7 @@ block content
   .container
     .row
       .col-md-6.offset-md-3
-        h2 Edit Comment
+        h2 Edit Reply For #{currentUser.username}
         .form-group
           form(name="createNewComment" action="/sports/#{sports_id}/comments/#{comment_id}/replies/#{reply._id}?_method=PUT" method = "POST")
             label Comment Edit Form:

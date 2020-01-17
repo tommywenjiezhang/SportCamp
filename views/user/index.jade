@@ -1,0 +1,66 @@
+extends ../layout.jade
+
+block content
+  style.
+    .thumbnail{
+      width:100%;
+      height:100%;
+      border-radius:100%;
+      transform: scale(0.7); 
+    }
+    .container{
+      padding-right:10%;
+      padding-left:20%;
+      margin:0;
+      width:100%;
+      height:100%;
+    }
+    #username{
+      position:relative;
+      top:20%;
+    }
+    #post_div{
+      margin-top:20%;
+    }
+    .card{
+      border-radius:8%;
+    }
+  include ../partials/header.jade
+  .container
+      .col-md-10.offset-md-2
+        .row
+          .col-md-4
+            .thumbnail
+              img(src="https://www.biography.com/.image/t_share/MTY2MzU3Nzk2OTM2MjMwNTkx/elon_musk_royal_society.jpg").thumbnail
+          .col-md-6
+            if user
+              div#username
+                h2= user.name
+                .p-2.mt-0 Email:#{currentUser.email}
+                .p-2.mt-0 Phone:#{currentUser.phone}
+                a(href="/users/#{user._id}/edit").btn.btn-primary Edit Profile
+        if user.sports
+          #post_div
+            h2 Posts
+            .row
+              each sport in user.sports
+                .col-md-4
+                  .card
+                    img(src="#{sport.image}").card-img-top
+                    .card-body
+                      a(href="/sports/#{sport._id}").card-title= sport.name
+                      div.card-text
+                        .fas.fa-comments
+                        span= sport.comments.length
+                        .fas.fa-thumbs-up
+                        span= sport.likes.length
+                  
+                
+            
+          
+          
+        
+        
+          
+          
+  

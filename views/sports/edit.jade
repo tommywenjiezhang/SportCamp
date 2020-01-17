@@ -16,9 +16,6 @@ block content
             input(name= "sport[name]",type = "text" value= sport.name).form-control
             label image
             input(name= "sport[image]",type="text" value= sport.image).form-control
-            label#output
-            .range-field.w-75
-              input(name= "sport[rating]", type="range", value= sport.rating, step=1, min="0", max="10").form-control#myRange
             label description
             input(name= "sport[description]", type="text" value= sport.description).form-control
             input(name="submit", type="submit", value="submit").btn.btn-primary

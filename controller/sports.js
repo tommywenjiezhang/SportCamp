@@ -2,16 +2,47 @@ var  mongoose   = require('mongoose');
 var Sport = require('../models/sports');
 var Comment =  require('../models/comment')
 var Reply = require("../models/Reply")
+var User = require("../models/users")
 
 exports.show_new_page =  function(req,res,next){
     res.render("sports/new",{users: req.user});
 }
 
+exports.post_likes = function (req, res) {
+    Sport.findById(req.params.id, function (err, foundSport) {
+        if (err) {
+            console.log(err);
+            return res.redirect("/sports");
+        }
+
+        // check if req.user._id exists in foundSport.likes
+        var foundUserLike = foundSport.likes.some(function (like) {
+            return like.equals(req.user._id);
+        });
+
+        if (foundUserLike) {
+            // user already liked, removing like
+            foundSport.likes.pull(req.user._id);
+        } else {
+            // adding the new user like
+            foundSport.likes.push(req.user);
+        }
+
+        foundSport.save(function (err) {
+            if (err) {
+                console.log(err);
+                return res.redirect("/sports");
+            }
+            return res.redirect("/sports");
+        });
+    });
+}
 
 exports.sport_list = function(req,res,next){ Sport.find({}, function(err, allSports){
    if(err){
        console.log(err);
    } else {
+
       res.render("sports/index",{sports:allSports});
       console.log(allSports)
    }
@@ -26,7 +57,7 @@ exports.sport_create_new = function(req,res,next){
        id: req.user._id,
        username: req.user.username
    }
-  var newSport = {name:name, image:image, description:description, rating:rating, author:author}
+  var newSport = {name:name, image:image, description:description, rating:rating,author:author}
 
 
   Sport.create(newSport, function(err, newlyCreated){
@@ -34,6 +65,17 @@ exports.sport_create_new = function(req,res,next){
         console.log(err);
     } else {
         //redirect back to sports page
+        User.findById(req.user._id,function(err, foundUser){
+            if(err){
+              console.log(err)
+            }
+            else{
+
+               foundUser.sports.push(newlyCreated)
+               foundUser.save();
+            }
+        })
+        req.flash("success", "Successfully added Sport");
         console.log(newlyCreated);
         res.redirect("/sports");
     }
@@ -47,7 +89,7 @@ exports.sport_show_specific = function (req,res){
           "path":"replies",
           "model":"Reply"
         }
-      }).exec(function(err, foundSport){
+      }).populate('likes').exec(function(err, foundSport){
        if(err){
            console.log(err);
        } else {
