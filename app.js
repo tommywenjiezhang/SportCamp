@@ -1,42 +1,41 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var mongoose   = require('mongoose')
-var methodOverride = require('method-override')
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var session = require('express-session')
-var LocalStrategy = require('passport-local').Strategy;
-var
-    Sport = require("./models/sports"),
-    Comment     = require("./models/comment"),
-    User        = require("./models/users");
-var flash = require('connect-flash');
+const createError = require('http-errors');
+const dotenv = require('dotenv')
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const mongoose   = require('mongoose')
+const methodOverride = require('method-override')
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const session = require('express-session');
+const helmet = require('helmet')
+const LocalStrategy = require('passport-local').Strategy;
+const flash = require('connect-flash');
+const port = process.env.PORT || 5000;
 // user temp database testing
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var sportsRouter= require('./routes/sports');
-var commentRouter = require('./routes/comment');
-var replyRouter = require('./routes/reply');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const sportsRouter= require('./routes/sports');
+const commentRouter = require('./routes/comment');
+const replyRouter = require('./routes/reply');
 
-var app = express();
-
+const app = express();
+dotenv.config();
 // mangodb url
 const url = 'mongodb://localhost:27017/sportCampDB';
 mongoose.connect(url)
 app.use(flash());
-
+app.use(helmet());
 app.use(session({ secret: 'passport-tutorial',resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport');
 
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
@@ -102,7 +101,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000, process.env.IP, function(){
+app.listen(port, process.env.IP, function(){
    console.log("The SportCamp Server Has Started!"+ process.env.PORT);
 });
 module.exports = app;
