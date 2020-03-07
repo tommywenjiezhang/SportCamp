@@ -25,7 +25,7 @@ const replyRouter = require('./routes/reply');
 const app = express();
 dotenv.config();
 // mangodb url
-const url = 'mongodb://localhost:27017/sportCampDB';
+const url = process.env.MONGOLAB_URI;
 mongoose.connect(url)
 app.use(flash());
 app.use(helmet());
