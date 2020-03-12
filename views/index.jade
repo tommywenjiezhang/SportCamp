@@ -6,14 +6,18 @@ block content
            margin-top:10%;
          }
   include ./partials/header.jade
-  .container#main_video_container
-    iframe(width='100%', height='100%', src='https://www.youtube.com/embed/AQkbbtDoPq0?autoplay=1&mute=1&start=10', frameborder='0', allow='accelerometer; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='')#myVideo
+  link(rel="stylesheet", href="/stylesheets/index.css")
+  ul.slideshow
+    li
+    li
+    li
+  
 
-  .container(style="margin-top: 10%;")
-    .row
-      .col-md-4.offset-md-8(style="background: rgba(0, 0, 0, 0.5);color: #f1f1f1;width: 100%; padding:20px")
+  .row.floating-signup
+    .col-md-6.offset-md-3
+      .container
         h1.heading Welcome to Sport Camp
-        p A social media plaform for sport enthusiasts
+        p A social media plaform for Sport Enthusiasts
         .row
           .col-md-12
             .form-group

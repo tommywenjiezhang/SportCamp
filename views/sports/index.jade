@@ -3,44 +3,44 @@ extends ../layout.jade
 block content
   
   include ../partials/header.jade
+  link(rel="stylesheet", href="/stylesheets/index.css")
+  script(src="/script/index.js")  
   style(type='text/css').
     .btn{
       display:inline-block;
       width:100%;
     }
-    .dropdown-item{
-      width:100%;
-    }
-    #like{
-       background:url(images/heart-solid0.svg)  no-repeat;
-       color : transparent;
-       border: none;
-    }
   .container
     .row.text-center(style="display:flex; flex-wrap: wrap;")
       each sport in sports
-        .col-md-4.col-sm-6
+        .col-md-4
           .card
-            img(src= sport.image).card-img-top
+            .post-image
+              .post-desc
+                .container
+                  .row
+                    hr
+                    .col-md-6
+                      .d-flex.flex-column
+                        div 
+                          .post-title= sport.name
+                        div
+                          p2 By #{sport.author.username}
+                        .edit
+                          a(href ="/sports/#{sport._id}") More info
+                        .delete
+                          if currentUser && currentUser.username === sport.author.username
+                            form(name="deleteSport", action="/sports/#{sport._id}?_method=DELETE" method="POST")
+                              input.btn.btn-danger(type="submit",name="submit",value="delete")
+                    .col-md-6
+                      .d-flex.justify-content-end
+                        div
+                          form.like_form(action="sports/#{sport._id}/like", method="POST")
+                            img.like_button(data="sports/#{sport._id}/like" src="images/like.png" onclick="handleClick()")
+                        div
+                          if sport.likes.length > 0
+                            span=sport.likes.length
+              img(src= sport.image).card-img-top
             .card-body
               .card-title
                 h3= sport.name
-                .d-flex.justify-content-center
-                  div
-                  form(action="sports/#{sport._id}/like", method="POST")
-                    input(type="submit" value="")#like
-                  if sport.likes.length > 0
-                    div  
-                      p= sport.likes.length
-              .card-text
-                p2 By #{sport.author.username}
-              .dropdown.mt-2
-                button.btn.btn-secondary.dropdown-toggle(type="button",id="dropdownMenuButton",data-toggle="dropdown",aria-haspopup="true",aria-expanded="false")
-                .dropdown-menu(aria-labelledby="dropdownMenuButton")#dropmenu
-                  .dropdown-item
-                    a(href ="/sports/#{sport._id}") More info
-                  .dropdown-item
-                    if currentUser && currentUser.username === sport.author.username
-                      form(name="deleteSport", action="/sports/#{sport._id}?_method=DELETE" method="POST")
-                        input(type="submit",name="submit",value="delete").btn.btn-danger
-    

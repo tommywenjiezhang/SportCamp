@@ -35,11 +35,26 @@ mixin login
   .navbar-nav.ml-auto
     if !currentUser
       .nav-item.active
-        a(href="/login").btn.btn-success Login
+      .user-login
+        div
+        a.nav-link(href="/login")
+            span.far.fa-user Login
+        div.signup
+          a.nav-link(href="/register")
+            span.fas.fa-user-plus Signup
     else
       li(class="active")
-         a( href="/users/#{currentUser._id}", class="nav-link")= currentUser.username
-      a.btn.btn-secondary.mr-0(href="/logout") Logout
+        .login-flex
+          div
+            a( href="/users/#{currentUser._id}", class="nav-link") Welcome #{currentUser.username}
+          .user-image
+            if currentUser.image
+              img(src="#{currentUser.image}")
+              a.nav-link.logout(href="/logout") Logout
+            else
+              a.nav-link.logout(href="/logout")
+                span.far.fa-user Logout
+        
   
 body
       +nav("Sport Camp", "sport_nav_dropdown_menu")
