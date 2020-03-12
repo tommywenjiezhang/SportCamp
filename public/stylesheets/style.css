@@ -29,26 +29,70 @@ div{
   top:0;
   position: fixed;
   width:60%;
+}
 
+.nav-link{
+  color:#FFFFFF;
+}
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+.navbar-brand{
+  color: #FFFFFF;
+  font-family: 'Pacifico', cursive;
+  font-weight:bold;
 }
 .btn.btn-primary{
   margin-top: 1%;
 }
+.login-flex{
+  display: flex; 
+  flex-direction: row;
+  align-content: space-evenly;
+}
+.user-image{
+  color:#FFFFFF;
+  padding-bottom: 0%;
+}
+.fa-user{
+  color:#FFFFFF;
+}
+
+@media only screen and (max-width: 1000px) {
+  .logout{
+    margin-left: 10%;
+  }
+  .row.justify-content-end {
+    width:100%;
+  }
+  .signup{
+    margin-left:10%;
+  }
+
+}
+
+.floating-signup{
+  margin-top:10%;
+}
+.col-md-6 .container{
+  padding-top:5%;
+  padding-bottom:5%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+}
+.user-login{
+  display:flex;
+  flex-direction: row;
+  align-items: space-evenly;
+}
+.signup{
+  border: #f1f1f1 solid 1px;
+  border-radius: 10%;
+
+}
 .container{
   margin-top:5%;
 }
-#myVideo {
-  position: fixed;
-  z-index: -1;
-  top:56px;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
-#main_video_container{
-  padding:0;
-}
+
+
 /* Add some content at the bottom of the video/page */
 #content {
   background: rgba(0, 0, 0, 0.5);
@@ -74,4 +118,66 @@ div{
 }
 #popup:hover{
   display: block;
+}
+
+
+
+.slideshow { 
+  position: fixed;
+  top:5%;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slideshow li { 
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 50s linear infinite; 
+}
+
+.slideshow li:nth-child(1) {
+  background-image: url("../images/exercise.jpeg");
+}
+.slideshow li:nth-child(2) { 
+  background-image: url("../images/bicycle.jpg");
+  animation-delay: 10s; 
+}
+.slideshow li:nth-child(3) { 
+  background-image: url("../images/sccoer.jpg");
+  animation-delay: 20s; 
+}
+
+
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+
+.d-flex.flex-row.justify-content-between{
+  margin-top:3%;
 }
