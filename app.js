@@ -15,8 +15,6 @@ const compression = require('compression')
 const flash = require('connect-flash');
 const port = process.env.PORT || 5000;
 // user temp database testing
-
-
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const sportsRouter= require('./routes/sports');
@@ -28,7 +26,7 @@ dotenv.config();
 // mangodb url
 const url = process.env.MONGOLAB_URI;
 console.log(typeof url)
-mongoose.connect(''+url,{useNewUrlParser: true } )
+mongoose.connect(url,{useNewUrlParser: true } )
 app.use(flash());
 app.use(helmet());
 app.use(session({ secret: 'passport-tutorial',resave: false, saveUninitialized: false }));
