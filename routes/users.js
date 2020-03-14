@@ -9,7 +9,6 @@ router.get('/:user_id', function(req, res, next) {
        console.log(err)
      }
      else{
-       console.log(foundUser)
        res.render('user/index',{user:foundUser})
      }
    }

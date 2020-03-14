@@ -49,7 +49,6 @@ mixin login
             a( href="/users/#{currentUser._id}", class="nav-link") Welcome #{currentUser.username}
           .user-image
             if currentUser.image
-              img(src="#{currentUser.image}")
               a.nav-link.logout(href="/logout") Logout
             else
               a.nav-link.logout(href="/logout")

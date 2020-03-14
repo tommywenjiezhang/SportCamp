@@ -15,8 +15,6 @@ exports.new_reply = function(req,res){
             console.log(err)
           }
           else{
-            console.log("=====================")
-            console.log("findComment:" + findComment)
             res.render("Replies/new",{comment:findComment,sport:sport})
           }
         })
@@ -39,7 +37,6 @@ exports.post_new_reply =  function(req,res){
             if(err){
               console.log(err)
             }else{
-              console.log(req.body.reply)
               reply.author.id = req.user._id;
               reply.author.username = req.user.username;
               reply.save()
@@ -79,7 +76,6 @@ exports.destroy_reply = function(req, res){
     //findByIdAndRemove
     Reply.findByIdAndRemove(req.params.replies_id, function(err){
        if(err){
-         console.log("deltete: " + err)
            res.redirect("back");
        } else {
            res.redirect("/sports/" + req.params.id);

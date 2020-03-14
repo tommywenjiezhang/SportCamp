@@ -8,7 +8,6 @@ exports.home_page = function(req, res, next) {
          console.log(err);
      } else {
         res.render("index",{user :req.user});
-        console.log(allUsers)
      }
   });
 }

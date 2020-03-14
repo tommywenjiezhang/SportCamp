@@ -71,6 +71,7 @@ div{
 
 .floating-signup{
   margin-top:10%;
+
 }
 .col-md-6 .container{
   padding-top:5%;
@@ -88,11 +89,17 @@ div{
   border-radius: 10%;
 
 }
+
+.card-img-top{
+  max-height:100%;
+}
 .container{
   margin-top:5%;
 }
 
-
+.signup-box{
+  border-radius: 5%;
+}
 /* Add some content at the bottom of the video/page */
 #content {
   background: rgba(0, 0, 0, 0.5);
@@ -119,7 +126,14 @@ div{
 #popup:hover{
   display: block;
 }
-
+.nav_img_holder img{
+  max-width: 100%;
+  max-height:100%;
+}
+.nav_img_holder {
+  height:10%;
+  width: 10%
+}
 
 
 .slideshow { 

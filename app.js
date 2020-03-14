@@ -11,6 +11,7 @@ const passport = require('passport');
 const session = require('express-session');
 const helmet = require('helmet')
 const LocalStrategy = require('passport-local').Strategy;
+const compression = require('compression')
 const flash = require('connect-flash');
 const port = process.env.PORT || 5000;
 // user temp database testing
@@ -48,7 +49,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
-
+app.use(compression())
 
 
 

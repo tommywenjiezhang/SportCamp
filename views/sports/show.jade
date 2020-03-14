@@ -16,57 +16,83 @@ block content
       background-color:none;
     }
   include ../partials/header.jade
+  link(rel="stylesheet", href="/stylesheets/show.css")
+  script(src="/script/show.js")
   .container
-    .jumbotron
-      h1.display-4 #{sport.name}
-      hr
-      .row
-        .col-md-6.offset-md-3
-          .thumbnail
-            img(src = sport.image)
-      .row
-        .col-md-6.offset-md-3
-          .caption
-            p #{sport.description}
-            .fas.fa-comments
+    .col-md-8.offset-md-2
+      .wraper
+        nav.sidebar
+          h1.display-4.mt-2.mb-0 #{sport.name}
+          .d-flex
+            div.sport_descriptions 
+              p #{sport.description}
+            .fas.fa-comments.mr-3.mt-3
               span= sport.comments.length
-            .fas.fa-thumbs-up
+            .fas.fa-thumbs-up.mt-3
               span= sport.likes.length
+        .content
+          img(src = sport.image)
           a(href = '#{sport._id}/edit').btn.btn-primary Edit Post
       .row
         .col-md-12
-          h2 Comments Section
-          a(href ="#{sport._id}/comments/new").btn.btn-primary Post Comments
-          .d-flex.flex-column
+          .navbar.navbar-light.bg-light.pill.mt-2
+            .navbar-brand  Comments
+            .nav-item
+              a.nav-link(href ="#{sport._id}/comments/new").btn.btn-primary Post Comments
+          .comment-section
             each comment in sport.comments
-              .list-group-item
-                p #{comment.text}
-                .d-flex.justify-content-start
-                  .p-2 By #{comment.author.username}
-                .d-flex.justify-content-end
-                  .dropdown
-                    button(type="button", class="btn btn-secondary dropdown-toggle ml-2 mb-0",  id="commentDropdown", data-toggle="dropdown",aria-haspopup="true",aria-expanded="false") Post Action
-                    .dropdown-menu(aria-labelledby="commentDropdown")
-                      if currentUser && currentUser.username.length > 0 && currentUser._id.equals(comment.author.id)
-                        .dropdown-item
-                          a(href="#{sport._id}/comments/#{comment._id}/edit").btn.btn-success Edit Comment
-                        .dropdown-item
+              hr
+              p #{comment.text}
+              p By #{comment.author.username}
+                if currentUser && currentUser.username.length > 0 && currentUser._id.equals(comment.author.id)
+                  .fas.fa-edit
+                  a.mr-2(href="#{sport._id}/comments/#{comment._id}/edit") Edit Comment
+                  .fas.fa-trash-alt
+                  a.mr-2.delete_comment(href="#",data-target="#deleteModal") Delete Comment
+                  .fas.fa-comment-dots
+                  a#add_replies.mr-2(href="#{sport._id}/comments/#{comment._id}/replies/new") Add Replies
+                  .fas.fa-caret-down
+                  a.view_replies(href="#") View Reply
+                  .replies_content
+                    each reply in comment.replies
+                      .list-group-item
+                        .p-2 #{reply.author.username}  said 
+                          span #{reply.text}
+                        .fas.fa-edit
+                        a(href ="#{sport._id}/comments/#{comment._id}/replies/#{reply._id}/edit",style="margin-top:5px") Edit Reply
+                        .fas.fa-trash-alt
+                        a.mr-2.delete_replies_model(href="#",data-target="#deleteRepliesModal") Delete Replies
+                        .modal#deleteRepliesModal
+                          .modal-dialog
+                            .modal-content
+                              .modal-header
+                                button(type="button", class="close", aria-label="Close")
+                                  span(aria-hidden="true")
+                              .modal-body
+                                p Do you want to delete this replies ?
+                              .modal-footer
+                                button.btn.btn-secondary(data-dismiss="modal") Close
+                                form(action ="/sports/#{sport._id}/comments/#{comment._id}/replies/#{reply._id}?_method=DELETE",method ="POST")
+                                  input(type= "submit",value="delete").btn.btn-danger
+
+                  .modal#deleteModal
+                    .modal-dialog
+                      .modal-content
+                        .modal-header
+                        button(type="button", class="close", aria-label="Close")
+                          span(aria-hidden="true")
+                        .modal-body
+                          p Do you want to delete this comment ?
+                        .modal-footer
+                          button.btn.btn-secondary(data-dismiss="modal") Close
                           form(action="#{sport._id}/comments/#{comment._id}?_method=DELETE",method="POST" )
                             input(type= "submit",value="delete").btn.btn-danger
-                a(href="#{sport._id}/comments/#{comment._id}/replies/new") Add Replies
-                each reply in comment.replies
-                  .list-group-item
-                    .p-2 #{reply.author.username} said: 
-                      span #{reply.text}
-                    .d-flex.flex-row.justify-content-end
-                      div
-                        a(href ="#{sport._id}/comments/#{comment._id}/replies/#{reply._id}/edit",style="margin-top:5px").btn.btn-primary Edit Reply
-                      div
-                        form(action ="/sports/#{sport._id}/comments/#{comment._id}/replies/#{reply._id}?_method=DELETE",method ="POST")
-                          input(type="submit",value="Delete Replies").btn.btn-danger
+          
                           
-                
-                          
+
+    
+
+
                       
                     
                         

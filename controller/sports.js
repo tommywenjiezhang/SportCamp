@@ -44,7 +44,6 @@ exports.sport_list = function(req,res,next){ Sport.find({}, function(err, allSpo
    } else {
 
       res.render("sports/index",{sports:allSports});
-      console.log(allSports)
    }
 });}
 
@@ -76,7 +75,6 @@ exports.sport_create_new = function(req,res,next){
             }
         })
         req.flash("success", "Successfully added Sport");
-        console.log(newlyCreated);
         res.redirect("/sports");
     }
 });
@@ -116,11 +114,9 @@ exports.sport_edit_route =  function(req, res){
     Sport.findByIdAndUpdate(req.params.id,req.body.sport,function(err, updatedSport){
        if(err){
          console.log("error "+ err)
-         console.log("sport in error "+ updatedSport)
            res.redirect("/sports");
        } else {
            //redirect somewhere(show page)
-           console.log("sport: sucess: "+ updatedSport)
            res.redirect("/sports/" + req.params.id);
        }
     });
