@@ -24,11 +24,11 @@ const commentRouter = require('./routes/comment');
 const replyRouter = require('./routes/reply');
 
 const app = express();
-dotenv.config({path:'.env'});
+dotenv.config();
 // mangodb url
 const url = process.env.MONGOLAB_URI;
 console.log(typeof url)
-mongoose.connect(url)
+mongoose.connect(url,{useNewUrlParser: true } )
 app.use(flash());
 app.use(helmet());
 app.use(session({ secret: 'passport-tutorial',resave: false, saveUninitialized: false }));
