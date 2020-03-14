@@ -28,7 +28,7 @@ dotenv.config();
 // mangodb url
 const url = process.env.MONGOLAB_URI;
 console.log(typeof url)
-mongoose.connect(url,{useNewUrlParser: true } )
+mongoose.connect(''+url,{useNewUrlParser: true } )
 app.use(flash());
 app.use(helmet());
 app.use(session({ secret: 'passport-tutorial',resave: false, saveUninitialized: false }));
