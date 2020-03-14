@@ -27,6 +27,7 @@ const app = express();
 dotenv.config({path:'.env'});
 // mangodb url
 const url = process.env.MONGOLAB_URI;
+console.log(typeof url)
 mongoose.connect(url)
 app.use(flash());
 app.use(helmet());
