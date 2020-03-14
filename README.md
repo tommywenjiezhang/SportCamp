@@ -1,7 +1,7 @@
 <h1>Sport Camp</h1>
 <a href="https://sportcampv2.herokuapp.com/"> Try it out Click here </a>
-<p>The Sport Camp is a social media platform that allows sport enthusiast to share their favorite sport. The project utilizes NodeJs and MangoDb </p>
-</p>The project allows user to retrieve, post, edit and delete their favorite sport</p>
+<p>The Sport Camp is a social media platform that allows sport enthusiast to share their favorite sport. The project utilizes NodeJs and MangoDb. </p>
+</p>The project allows user to retrieve, post, edit and delete their favorite sport.The App also use user authenication</p>
 
 <h3>The Home Page</h3>
 <hr/>
